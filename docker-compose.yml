@@ -161,3 +161,17 @@ services:
     depends_on:
       - car-position-consumer
       - docker-mongodb
+
+  kafka-ui:
+      image: provectuslabs/kafka-ui:v0.7.2
+      ports:
+        - "8080:8080"
+      environment:
+        KAFKA_CLUSTERS_0_NAME: local
+        KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka-server1:29092, kafka-server2:29093, kafka-server3:29094
+      depends_on:
+        - kafka-server1
+        - kafka-server2
+        - kafka-server3
+      networks:
+        - kafka-net
